@@ -18,9 +18,9 @@
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-100">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="full-featured-store.html" class="text-2xl font-bold tracking-tighter">CASE<span class="text-pink-500">CRAFT</span></a>
+            <a href="index.html" class="text-2xl font-bold tracking-tighter italic">CASE<span class="text-purple-500">CRAFT</span></a>
             <div class="flex items-center space-x-6">
-                <button @click="cartOpen = true" class="relative p-2">
+                <button @click="window.location.href='checkout.html'" class="relative p-2 bg-purple-50 rounded-full text-purple-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     <span x-show="cartCount > 0" x-text="cartCount" class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center"></span>
                 </button>
@@ -38,7 +38,7 @@
                 <div class="mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
                     <div class="grid grid-cols-5 gap-4">
                         <template x-for="(img, index) in mainImages" :key="index">
-                            <button @click="selectedImage = img" class="relative h-20 bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden border-2" :class="selectedImage === img ? 'border-pink-500' : 'border-transparent'">
+                            <button @click="selectedImage = img" class="relative h-20 bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden border-2 transition-all" :class="selectedImage === img ? 'border-purple-500' : 'border-transparent'">
                                 <img :src="img" class="w-full h-full object-cover">
                             </button>
                         </template>
@@ -46,41 +46,40 @@
                 </div>
                 <!-- Main Image -->
                 <div class="w-full aspect-w-1 aspect-h-1">
-                    <img :src="selectedImage" class="w-full h-full object-center object-cover sm:rounded-2xl shadow-xl transition-all duration-300">
+                    <img :src="selectedImage" class="w-full h-full object-center object-cover sm:rounded-2xl shadow-xl transition-all duration-300 border border-purple-50">
                 </div>
             </div>
 
             <!-- Product Info -->
-            <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+            <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0 text-left">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Ins Style Contrast Dot Case</h1>
-                        <p class="mt-2 text-sm text-gray-500">360° Rotating Invisible Stand for iPhone 16 Series</p>
+                        <h1 class="text-3xl font-black tracking-tight text-gray-900 uppercase">Ins Style Contrast Dot</h1>
+                        <p class="mt-2 text-sm text-gray-500 font-bold uppercase tracking-widest">360° Rotating Stand Series</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-3xl font-bold text-pink-600">$24.90</p>
-                        <p class="text-sm text-gray-400 line-through">$45.00</p>
+                        <p class="text-3xl font-black text-purple-600">$24.90</p>
                     </div>
                 </div>
 
                 <div class="mt-6">
                     <h3 class="sr-only">Description</h3>
-                    <div class="text-base text-gray-700 space-y-4">
-                        <p>The viral 1688 bestseller. Features high-quality contrast color dots, a skin-friendly matte texture, and a military-grade 360-degree rotating ring stand.</p>
+                    <div class="text-base text-gray-600 space-y-4 leading-relaxed">
+                        <p>The viral Korean 'Ins' trend has arrived. Bold pastel contrast frames met with oversized playful polka dots. Featuring a premium 360° invisible rotating ring stand that's as functional as it is aesthetic.</p>
                     </div>
                 </div>
 
                 <div class="mt-10 border-t border-gray-100 pt-10">
                     <!-- Color / SKU Picker -->
                     <div>
-                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest">Select Color</h3>
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Select Your Vibe</h3>
                         <div class="mt-4 grid grid-cols-4 gap-4">
                             <template x-for="sku in skus" :key="sku.name">
                                 <button @click="selectSku(sku)" class="group relative flex flex-col items-center space-y-2 focus:outline-none">
-                                    <div class="w-full aspect-square rounded-xl overflow-hidden border-2 transition-all" :class="selectedSku.name === sku.name ? 'border-pink-500 shadow-md' : 'border-gray-100 hover:border-gray-300'">
+                                    <div class="w-full aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300" :class="selectedSku.name === sku.name ? 'border-purple-500 ring-4 ring-purple-100 scale-105 shadow-lg' : 'border-gray-100 hover:border-purple-200'">
                                         <img :src="sku.image" class="w-full h-full object-cover">
                                     </div>
-                                    <span class="text-[10px] font-bold text-gray-500 uppercase text-center" x-text="sku.label"></span>
+                                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-tighter" :class="selectedSku.name === sku.name ? 'text-purple-600' : ''" x-text="sku.label"></span>
                                 </button>
                             </template>
                         </div>
@@ -88,10 +87,10 @@
 
                     <!-- Model Picker -->
                     <div class="mt-8">
-                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest">Phone Model</h3>
-                        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Device Model</h3>
+                        <div class="mt-4 grid grid-cols-3 gap-2">
                             <template x-for="model in models" :key="model">
-                                <label class="border rounded-xl py-3 px-4 flex items-center justify-center text-sm font-semibold uppercase cursor-pointer transition-all" :class="selectedModel === model ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 hover:bg-gray-50 border-gray-200'">
+                                <label class="border rounded-xl py-2.5 px-2 flex items-center justify-center text-[10px] font-bold uppercase cursor-pointer transition-all" :class="selectedModel === model ? 'bg-gray-900 text-white border-gray-900 shadow-lg' : 'bg-white text-gray-500 hover:border-purple-200 border-gray-100'">
                                     <input type="radio" name="model" :value="model" x-model="selectedModel" class="sr-only">
                                     <span x-text="model"></span>
                                 </label>
@@ -101,57 +100,58 @@
 
                     <!-- Add to Cart -->
                     <div class="mt-10">
-                        <button @click="addToCart()" class="w-full bg-pink-600 border border-transparent rounded-2xl py-4 px-8 flex items-center justify-center text-lg font-bold text-white hover:bg-pink-700 transition-all transform active:scale-95 shadow-lg">
-                            Add to Cart
+                        <button @click="addToCart()" class="w-full bg-purple-600 border-none rounded-[2rem] py-5 px-8 flex items-center justify-center text-lg font-black text-white hover:bg-purple-700 transition-all transform active:scale-95 shadow-2xl shadow-purple-200">
+                            Add to Bag
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Details Section -->
+        <!-- Details -->
         <div class="mt-16 border-t border-gray-100 pt-16">
-            <h2 class="text-2xl font-bold mb-8">Product Specifications</h2>
-            <dl class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-12">
+            <h2 class="text-xl font-black uppercase tracking-widest mb-8">Details & Care</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
                 <div>
-                    <dt class="font-bold text-gray-900">Materials</dt>
-                    <dd class="mt-2 text-gray-600">Premium PC + TPU composite with 3D Dot texture and stainless steel ring.</dd>
+                    <h4 class="font-bold text-gray-900 mb-2">360° Stand</h4>
+                    <p class="text-sm text-gray-500">Integrated stainless steel ring that rotates freely for any viewing angle.</p>
                 </div>
                 <div>
-                    <dt class="font-bold text-gray-900">Special Feature</dt>
-                    <dd class="mt-2 text-gray-600">360° Infinite Rotation Invisible Stand, MagSafe Compatible.</dd>
+                    <h4 class="font-bold text-gray-900 mb-2">MagSafe Ready</h4>
+                    <p class="text-sm text-gray-500">Reinforced internal magnets for high-speed wireless charging compatibility.</p>
                 </div>
-            </dl>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-2">Drop Tested</h4>
+                    <p class="text-sm text-gray-500">10ft military-grade protection with shock-absorbing lavender bumper.</p>
+                </div>
+            </div>
         </div>
     </main>
 
     <script>
         function detailApp() {
             return {
-                cartCount: 0,
+                cartCount: JSON.parse(localStorage.getItem('cart') || '[]').length,
                 selectedModel: 'iPhone 16 Pro',
-                selectedImage: 'https://cbu01.alicdn.com/img/ibank/O1CN01OFReIC1z806hnRNpM_!!2471836668-0-cib.jpg',
-                selectedSku: { name: '橙底+旋转支架', label: 'Orange', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01UYI2yE1z806g4vqHH_!!2471836668-0-cib.jpg' },
+                selectedImage: 'assets/main1.jpg',
+                selectedSku: { name: '橙底+旋转支架', label: 'Orange' },
                 models: [
-                    'iPhone 11', 'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max',
-                    'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max',
-                    'iPhone 14', 'iPhone 14 Pro', 'iPhone 14 Pro Max',
-                    'iPhone 15', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
-                    'iPhone 16', 'iPhone 16 Pro', 'iPhone 16 Pro Max',
-                    'iPhone 17', 'iPhone 17 Pro', 'iPhone 17 Pro Max'
+                    'iPhone 12', '12 Pro Max',
+                    'iPhone 13', '13 Pro Max',
+                    'iPhone 14', '14 Pro Max',
+                    'iPhone 15', '15 Pro Max',
+                    'iPhone 16', '16 Pro Max',
+                    'iPhone 17', '17 Pro Max'
                 ],
                 mainImages: [
-                    'https://cbu01.alicdn.com/img/ibank/O1CN01OFReIC1z806hnRNpM_!!2471836668-0-cib.jpg',
-                    'https://cbu01.alicdn.com/img/ibank/O1CN01NclGeX1z806gW5Pn7_!!2471836668-0-cib.jpg',
-                    'https://cbu01.alicdn.com/img/ibank/O1CN01HmZiCD1z806gLtBy6_!!2471836668-0-cib.jpg',
-                    'https://cbu01.alicdn.com/img/ibank/O1CN01EzF4YP1z806gYty9v_!!2471836668-0-cib.jpg',
-                    'https://cbu01.alicdn.com/img/ibank/O1CN01tAk3CE1z806gSl5EX_!!2471836668-0-cib.jpg'
+                    'assets/main1.jpg', 'assets/main2.jpg', 'assets/main3.jpg', 
+                    'assets/main4.jpg', 'assets/main5.jpg'
                 ],
                 skus: [
-                    { name: '橙底+旋转支架', label: 'Orange', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01UYI2yE1z806g4vqHH_!!2471836668-0-cib.jpg' },
-                    { name: '蓝底+旋转支架', label: 'Blue', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01Wx91va1z806gJo9Ez_!!2471836668-0-cib.jpg' },
-                    { name: '绿底+旋转支架', label: 'Green', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01IiTbdz1z806g4ooQp_!!2471836668-0-cib.jpg' },
-                    { name: '薄荷绿+旋转支架', label: 'Mint', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01Pocy0a1z806gAxg81_!!2471836668-0-cib.jpg' }
+                    { name: '橙底+旋转支架', label: 'Orange', image: 'assets/sku-orange.jpg' },
+                    { name: '蓝底+旋转支架', label: 'Blue', image: 'assets/sku-blue.jpg' },
+                    { name: '绿底+旋转支架', label: 'Green', image: 'assets/sku-green.jpg' },
+                    { name: '薄荷绿+旋转支架', label: 'Mint', image: 'assets/sku-mint.jpg' }
                 ],
                 selectSku(sku) {
                     this.selectedSku = sku;
@@ -169,8 +169,7 @@
                     });
                     localStorage.setItem('cart', JSON.stringify(cart));
                     this.cartCount = cart.length;
-                    
-                    if(confirm('Added to cart! Go to checkout?')) {
+                    if(confirm('Added to bag! Go to checkout?')) {
                         window.location.href = 'checkout.html';
                     }
                 }
