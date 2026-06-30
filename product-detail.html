@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ins Style Contrast Dot Case | CaseCraft Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        [x-cloak] { display: none !important; }
+        .ring-active { ring: 2px solid #EC4899; }
+    </style>
+</head>
+<body class="bg-white" x-data="detailApp()">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="full-featured-store.html" class="text-2xl font-bold tracking-tighter">CASE<span class="text-pink-500">CRAFT</span></a>
+            <div class="flex items-center space-x-6">
+                <button @click="cartOpen = true" class="relative p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span x-show="cartCount > 0" x-text="cartCount" class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail -->
+    <main class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
+            
+            <!-- Image Gallery -->
+            <div class="flex flex-col-reverse">
+                <!-- Thumbnail List -->
+                <div class="mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
+                    <div class="grid grid-cols-5 gap-4">
+                        <template x-for="(img, index) in mainImages" :key="index">
+                            <button @click="selectedImage = img" class="relative h-20 bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden border-2" :class="selectedImage === img ? 'border-pink-500' : 'border-transparent'">
+                                <img :src="img" class="w-full h-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                </div>
+                <!-- Main Image -->
+                <div class="w-full aspect-w-1 aspect-h-1">
+                    <img :src="selectedImage" class="w-full h-full object-center object-cover sm:rounded-2xl shadow-xl transition-all duration-300">
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Ins Style Contrast Dot Case</h1>
+                        <p class="mt-2 text-sm text-gray-500">360° Rotating Invisible Stand for iPhone 16 Series</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-pink-600">$24.90</p>
+                        <p class="text-sm text-gray-400 line-through">$45.00</p>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="sr-only">Description</h3>
+                    <div class="text-base text-gray-700 space-y-4">
+                        <p>The viral 1688 bestseller. Features high-quality contrast color dots, a skin-friendly matte texture, and a military-grade 360-degree rotating ring stand.</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 border-t border-gray-100 pt-10">
+                    <!-- Color / SKU Picker -->
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest">Select Color</h3>
+                        <div class="mt-4 grid grid-cols-4 gap-4">
+                            <template x-for="sku in skus" :key="sku.name">
+                                <button @click="selectSku(sku)" class="group relative flex flex-col items-center space-y-2 focus:outline-none">
+                                    <div class="w-full aspect-square rounded-xl overflow-hidden border-2 transition-all" :class="selectedSku.name === sku.name ? 'border-pink-500 shadow-md' : 'border-gray-100 hover:border-gray-300'">
+                                        <img :src="sku.image" class="w-full h-full object-cover">
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-500 uppercase text-center" x-text="sku.label"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Model Picker -->
+                    <div class="mt-8">
+                        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest">Phone Model</h3>
+                        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            <template x-for="model in models" :key="model">
+                                <label class="border rounded-xl py-3 px-4 flex items-center justify-center text-sm font-semibold uppercase cursor-pointer transition-all" :class="selectedModel === model ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 hover:bg-gray-50 border-gray-200'">
+                                    <input type="radio" name="model" :value="model" x-model="selectedModel" class="sr-only">
+                                    <span x-text="model"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <div class="mt-10">
+                        <button @click="addToCart()" class="w-full bg-pink-600 border border-transparent rounded-2xl py-4 px-8 flex items-center justify-center text-lg font-bold text-white hover:bg-pink-700 transition-all transform active:scale-95 shadow-lg">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="mt-16 border-t border-gray-100 pt-16">
+            <h2 class="text-2xl font-bold mb-8">Product Specifications</h2>
+            <dl class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-12">
+                <div>
+                    <dt class="font-bold text-gray-900">Materials</dt>
+                    <dd class="mt-2 text-gray-600">Premium PC + TPU composite with 3D Dot texture and stainless steel ring.</dd>
+                </div>
+                <div>
+                    <dt class="font-bold text-gray-900">Special Feature</dt>
+                    <dd class="mt-2 text-gray-600">360° Infinite Rotation Invisible Stand, MagSafe Compatible.</dd>
+                </div>
+            </dl>
+        </div>
+    </main>
+
+    <script>
+        function detailApp() {
+            return {
+                cartCount: 0,
+                selectedModel: 'iPhone 16 Pro',
+                selectedImage: 'https://cbu01.alicdn.com/img/ibank/O1CN01OFReIC1z806hnRNpM_!!2471836668-0-cib.jpg',
+                selectedSku: { name: '橙底+旋转支架', label: 'Orange', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01UYI2yE1z806g4vqHH_!!2471836668-0-cib.jpg' },
+                models: [
+                    'iPhone 11', 'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max',
+                    'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max',
+                    'iPhone 14', 'iPhone 14 Pro', 'iPhone 14 Pro Max',
+                    'iPhone 15', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
+                    'iPhone 16', 'iPhone 16 Pro', 'iPhone 16 Pro Max',
+                    'iPhone 17', 'iPhone 17 Pro', 'iPhone 17 Pro Max'
+                ],
+                mainImages: [
+                    'https://cbu01.alicdn.com/img/ibank/O1CN01OFReIC1z806hnRNpM_!!2471836668-0-cib.jpg',
+                    'https://cbu01.alicdn.com/img/ibank/O1CN01NclGeX1z806gW5Pn7_!!2471836668-0-cib.jpg',
+                    'https://cbu01.alicdn.com/img/ibank/O1CN01HmZiCD1z806gLtBy6_!!2471836668-0-cib.jpg',
+                    'https://cbu01.alicdn.com/img/ibank/O1CN01EzF4YP1z806gYty9v_!!2471836668-0-cib.jpg',
+                    'https://cbu01.alicdn.com/img/ibank/O1CN01tAk3CE1z806gSl5EX_!!2471836668-0-cib.jpg'
+                ],
+                skus: [
+                    { name: '橙底+旋转支架', label: 'Orange', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01UYI2yE1z806g4vqHH_!!2471836668-0-cib.jpg' },
+                    { name: '蓝底+旋转支架', label: 'Blue', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01Wx91va1z806gJo9Ez_!!2471836668-0-cib.jpg' },
+                    { name: '绿底+旋转支架', label: 'Green', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01IiTbdz1z806g4ooQp_!!2471836668-0-cib.jpg' },
+                    { name: '薄荷绿+旋转支架', label: 'Mint', image: 'https://cbu01.alicdn.com/img/ibank/O1CN01Pocy0a1z806gAxg81_!!2471836668-0-cib.jpg' }
+                ],
+                selectSku(sku) {
+                    this.selectedSku = sku;
+                    this.selectedImage = sku.image;
+                },
+                addToCart() {
+                    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    cart.push({
+                        name: 'Ins Style Contrast Dot Case',
+                        price: 24.90,
+                        selectedModel: this.selectedModel,
+                        selectedSku: this.selectedSku,
+                        image: this.selectedImage,
+                        quantity: 1
+                    });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    this.cartCount = cart.length;
+                    
+                    if(confirm('Added to cart! Go to checkout?')) {
+                        window.location.href = 'checkout.html';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
