@@ -188,14 +188,14 @@
                 cartOpen: false,
                 cart: JSON.parse(localStorage.getItem('cart') || '[]'),
                 products: [
-                    { id: 1, name: 'Ins Contrast Dot Rotate', price: 24.90, category: 'iPhone 16 Series', image: 'https://sc02.alicdn.com/kf/A2ee8bbd994474cdabd1099f69d9571a7j.png' },
-                    { id: 2, name: 'Magnetic Film Polka', price: 22.50, category: 'iPhone 17/16', image: 'https://s.alicdn.com/@sc04/kf/H8c39c1a926f44b47a51393dccdbe9cc46.jpg_640x640.jpg' },
-                    { id: 3, name: 'Luxury IMD Ring Stand', price: 34.00, category: 'Premium Series', image: 'https://s.alicdn.com/@sc04/kf/Hf81a4e30e9d34342abd6a12543403272X.png_640x640.png' },
-                    { id: 4, name: 'Liquid Silicone Dot', price: 29.90, category: 'Soft-Touch Series', image: 'https://s.alicdn.com/@sc04/kf/H99ba6211d822459c854464ef2f0d63f6D.jpg_640x640.jpg' },
-                    { id: 5, name: 'Clear Rotating Gem', price: 26.00, category: 'Transparent Series', image: 'https://s.alicdn.com/@sc04/kf/He1e671d0beb74504811942de4ff3fd66k.jpg_640x640.jpg' },
-                    { id: 6, name: 'Minimalist Mirror Face', price: 28.50, category: 'Korean Edition', image: 'https://s.alicdn.com/@sc04/kf/Hd49a2cd7324742ed9243970bc65359aaW.png_640x640.png' },
-                    { id: 7, name: 'Elegant Silver Plated', price: 31.00, category: 'Luxury Edition', image: 'https://s.alicdn.com/@sc04/kf/Hc8b6fb0e6e55401f974b95a39c3db4dcY.jpg_640x640.jpg' },
-                    { id: 8, name: 'Retro Candy Color', price: 19.90, category: 'Youth Series', image: 'https://s.alicdn.com/@sc04/kf/H4ae8cf0f7e9f49f7925326040583a80fP.jpg_640x640.jpg' }
+                    { id: 1, name: 'Ins Contrast Dot Rotate', price: 24.90, category: 'iPhone 16 Series', image: 'assets/hero.png' },
+                    { id: 2, name: 'Magnetic Film Polka', price: 22.50, category: 'iPhone 17/16', image: 'assets/main1.jpg' },
+                    { id: 3, name: 'Luxury IMD Ring Stand', price: 34.00, category: 'Premium Series', image: 'assets/main2.jpg' },
+                    { id: 4, name: 'Liquid Silicone Dot', price: 29.90, category: 'Soft-Touch Series', image: 'assets/sku-mint.jpg' },
+                    { id: 5, name: 'Clear Rotating Gem', price: 26.00, category: 'Transparent Series', image: 'assets/sku-blue.jpg' },
+                    { id: 6, name: 'Minimalist Mirror Face', price: 28.50, category: 'Korean Edition', image: 'assets/main3.jpg' },
+                    { id: 7, name: 'Elegant Silver Plated', price: 31.00, category: 'Luxury Edition', image: 'assets/main4.jpg' },
+                    { id: 8, name: 'Retro Candy Color', price: 19.90, category: 'Youth Series', image: 'assets/main5.jpg' }
                 ],
                 addToCart(product) {
                     this.cart.push({ ...product, quantity: 1, selectedModel: 'iPhone 16 Pro', selectedSku: { label: 'Original' } });
