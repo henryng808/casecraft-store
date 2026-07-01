@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ins Style Contrast Dot Case | CaseCraft Detail</title>
+    <title>Product Detail | CaseCraft AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         [x-cloak] { display: none !important; }
-        .ring-active { ring: 2px solid #EC4899; }
     </style>
 </head>
-<body class="bg-white" x-data="detailApp()">
+<body class="bg-white" x-data="detailApp()" x-init="init()">
 
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-100">
@@ -28,23 +27,26 @@
         </div>
     </nav>
 
+    <!-- Dynamic Loader -->
+    <div x-show="!product" class="h-screen flex items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+    </div>
+
     <!-- Product Detail -->
-    <main class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <main x-show="product" x-cloak class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
             
             <!-- Image Gallery -->
             <div class="flex flex-col-reverse">
-                <!-- Thumbnail List -->
                 <div class="mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
                     <div class="grid grid-cols-5 gap-4">
-                        <template x-for="(img, index) in mainImages" :key="index">
+                        <template x-for="(img, index) in product.gallery" :key="index">
                             <button @click="selectedImage = img" class="relative h-20 bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer overflow-hidden border-2 transition-all" :class="selectedImage === img ? 'border-purple-500' : 'border-transparent'">
                                 <img :src="img" class="w-full h-full object-cover">
                             </button>
                         </template>
                     </div>
                 </div>
-                <!-- Main Image -->
                 <div class="w-full aspect-w-1 aspect-h-1">
                     <img :src="selectedImage" class="w-full h-full object-center object-cover sm:rounded-2xl shadow-xl transition-all duration-300 border border-purple-50">
                 </div>
@@ -54,25 +56,24 @@
             <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0 text-left">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h1 class="text-3xl font-black tracking-tight text-gray-900 uppercase">Ins Style Contrast Dot</h1>
-                        <p class="mt-2 text-sm text-gray-500 font-bold uppercase tracking-widest">360° Rotating Stand Series</p>
+                        <h1 class="text-3xl font-black tracking-tight text-gray-900 uppercase" x-text="product.name"></h1>
+                        <p class="mt-2 text-sm text-gray-500 font-bold uppercase tracking-widest" x-text="product.series"></p>
                     </div>
                     <div class="text-right">
-                        <p class="text-3xl font-black text-purple-600">$24.90</p>
+                        <p class="text-3xl font-black text-purple-600" x-text="'$' + product.price"></p>
                     </div>
                 </div>
 
                 <div class="mt-6">
-                    <h3 class="sr-only">Description</h3>
                     <div class="text-base text-gray-600 space-y-4 leading-relaxed">
-                        <p>The viral Korean 'Ins' trend has arrived. Bold pastel contrast frames met with oversized playful polka dots. Featuring a premium 360° invisible rotating ring stand that's as functional as it is aesthetic.</p>
+                        <p x-text="product.description"></p>
                     </div>
                 </div>
 
                 <div class="mt-10 border-t border-gray-100 pt-10">
                     <!-- Color / SKU Picker -->
                     <div>
-                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Select Your Vibe</h3>
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Select Style</h3>
                         <div class="mt-4 grid grid-cols-4 gap-4">
                             <template x-for="sku in skus" :key="sku.name">
                                 <button @click="selectSku(sku)" class="group relative flex flex-col items-center space-y-2 focus:outline-none">
@@ -107,71 +108,50 @@
                 </div>
             </div>
         </div>
-
-        <!-- Details -->
-        <div class="mt-16 border-t border-gray-100 pt-16">
-            <h2 class="text-xl font-black uppercase tracking-widest mb-8">Details & Care</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-2">360° Stand</h4>
-                    <p class="text-sm text-gray-500">Integrated stainless steel ring that rotates freely for any viewing angle.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-2">MagSafe Ready</h4>
-                    <p class="text-sm text-gray-500">Reinforced internal magnets for high-speed wireless charging compatibility.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-2">Drop Tested</h4>
-                    <p class="text-sm text-gray-500">10ft military-grade protection with shock-absorbing lavender bumper.</p>
-                </div>
-            </div>
-        </div>
     </main>
 
     <script>
         function detailApp() {
             return {
-                cartCount: JSON.parse(localStorage.getItem('cart') || '[]').length,
+                cartCount: 0,
+                product: null,
                 selectedModel: 'iPhone 16 Pro',
-                selectedImage: 'https://henryng808.github.io/casecraft-store//assets/main1.jpg',
-                selectedSku: { name: '橙底+旋转支架', label: 'Orange' },
-                models: [
-                    'iPhone 12', '12 Pro Max',
-                    'iPhone 13', '13 Pro Max',
-                    'iPhone 14', '14 Pro Max',
-                    'iPhone 15', '15 Pro Max',
-                    'iPhone 16', '16 Pro Max',
-                    'iPhone 17', '17 Pro Max'
-                ],
-                mainImages: [
-                    'https://henryng808.github.io/casecraft-store//assets/main1.jpg', 'https://henryng808.github.io/casecraft-store//assets/main2.jpg', 'https://henryng808.github.io/casecraft-store//assets/main3.jpg', 
-                    'https://henryng808.github.io/casecraft-store//assets/main4.jpg', 'https://henryng808.github.io/casecraft-store//assets/main5.jpg'
-                ],
+                selectedImage: '',
+                selectedSku: { name: '', label: '' },
+                models: ['iPhone 12', '12 Pro Max', 'iPhone 13', '13 Pro Max', 'iPhone 14', '14 Pro Max', 'iPhone 15', '15 Pro Max', 'iPhone 16', '16 Pro Max', 'iPhone 17', '17 Pro Max'],
                 skus: [
-                    { name: '橙底+旋转支架', label: 'Orange', image: 'https://henryng808.github.io/casecraft-store//assets/sku-orange.jpg' },
-                    { name: '蓝底+旋转支架', label: 'Blue', image: 'https://henryng808.github.io/casecraft-store//assets/sku-blue.jpg' },
-                    { name: '绿底+旋转支架', label: 'Green', image: 'https://henryng808.github.io/casecraft-store//assets/sku-green.jpg' },
-                    { name: '薄荷�?旋转支架', label: 'Mint', image: 'https://henryng808.github.io/casecraft-store//assets/sku-mint.jpg' }
+                    { name: 'orange', label: 'Orange', image: 'https://henryng808.github.io/casecraft-store/assets/sku-orange.jpg' },
+                    { name: 'blue', label: 'Blue', image: 'https://henryng808.github.io/casecraft-store/assets/sku-blue.jpg' },
+                    { name: 'green', label: 'Green', image: 'https://henryng808.github.io/casecraft-store/assets/sku-green.jpg' },
+                    { name: 'mint', label: 'Mint', image: 'https://henryng808.github.io/casecraft-store/assets/sku-mint.jpg' }
                 ],
+                database: {
+                    '1': { name: 'Ins Contrast Dot Rotate', price: 24.90, series: '360° Rotating Series', description: 'The original 1688 bestseller. Features high-quality contrast color dots and a 360-degree rotating ring stand.', gallery: ['https://henryng808.github.io/casecraft-store/assets/hero.png', 'https://henryng808.github.io/casecraft-store/assets/main1.jpg', 'https://henryng808.github.io/casecraft-store/assets/main2.jpg'] },
+                    '2': { name: 'Magnetic Film Polka', price: 22.50, series: 'MagSafe Compatible', description: 'High-strength magnetic alignment with minimalist polka dot pattern. Smooth matte finish.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-magnetic.jpg', 'https://henryng808.github.io/casecraft-store/assets/main3.jpg'] },
+                    '3': { name: '360° Glitter Stand', price: 19.80, series: 'Sparkle Edition', description: 'Infused with premium glitter and features a built-in rotatable ring for hands-free viewing.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-glitter.jpg', 'https://henryng808.github.io/casecraft-store/assets/main4.jpg'] },
+                    '4': { name: 'Luxury IMD Ring', price: 34.00, series: 'Premium Edition', description: 'Double-layered IMD technology ensures the pattern never fades. Includes a matching luxury metal ring.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-luxury.png', 'https://henryng808.github.io/casecraft-store/assets/main5.jpg'] },
+                    '5': { name: 'Milky Blue Matte', price: 21.00, series: 'Soft-Touch Series', description: 'Incredible hand-feel with our unique milky-blue matte coating. Elegant and simple.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-milky.jpg', 'https://henryng808.github.io/casecraft-store/assets/main1.jpg'] },
+                    '6': { name: 'Diamond IMD Case', price: 26.50, series: 'Fashion Edition', description: '3D Diamond-cut texture meets trendy Korean ins patterns. High-end visual depth.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-diamond.jpg', 'https://henryng808.github.io/casecraft-store/assets/main2.jpg'] },
+                    '7': { name: 'Minimalist Mirror', price: 28.50, series: 'Selfie Series', description: 'Built-in real mirror face with minimalist polka dot accents. The ultimate tool for content creators.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-mirror.png', 'https://henryng808.github.io/casecraft-store/assets/main3.jpg'] },
+                    '8': { name: 'Electroplated Silver', price: 31.00, series: 'Luxury Series', description: 'Mirror-finish electroplated purple frame with premium dot pattern. High-shine, low-profile.', gallery: ['https://henryng808.github.io/casecraft-store/assets/prod-silver.jpg', 'https://henryng808.github.io/casecraft-store/assets/main4.jpg'] }
+                },
+                init() {
+                    const params = new URLSearchParams(window.location.search);
+                    const id = params.get('id') || '1';
+                    this.product = this.database[id];
+                    this.selectedImage = this.product.gallery[0];
+                    this.selectedSku = this.skus[0];
+                    this.cartCount = JSON.parse(localStorage.getItem('cart') || '[]').length;
+                },
                 selectSku(sku) {
                     this.selectedSku = sku;
-                    this.selectedImage = sku.image;
                 },
                 addToCart() {
                     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                    cart.push({
-                        name: 'Ins Style Contrast Dot Case',
-                        price: 24.90,
-                        selectedModel: this.selectedModel,
-                        selectedSku: this.selectedSku,
-                        image: this.selectedImage,
-                        quantity: 1
-                    });
+                    cart.push({ ...this.product, selectedModel: this.selectedModel, selectedSku: this.selectedSku, image: this.selectedImage, quantity: 1 });
                     localStorage.setItem('cart', JSON.stringify(cart));
                     this.cartCount = cart.length;
-                    if(confirm('Added to bag! Go to checkout?')) {
-                        window.location.href = 'checkout.html';
-                    }
+                    if(confirm('Added to bag! Go to checkout?')) window.location.href = 'checkout.html';
                 }
             }
         }
