@@ -188,14 +188,14 @@
                 cartOpen: false,
                 cart: JSON.parse(localStorage.getItem('cart') || '[]'),
                 products: [
-                    { id: 1, name: 'Ins Contrast Dot Rotate', price: 24.90, category: 'iPhone 16 Series', image: 'https://henryng808.github.io/casecraft-store//assets/hero.png' },
-                    { id: 2, name: 'Magnetic Film Polka', price: 22.50, category: 'iPhone 17/16', image: 'https://henryng808.github.io/casecraft-store//assets/main1.jpg' },
-                    { id: 3, name: 'Luxury IMD Ring Stand', price: 34.00, category: 'Premium Series', image: 'https://henryng808.github.io/casecraft-store//assets/main2.jpg' },
-                    { id: 4, name: 'Liquid Silicone Dot', price: 29.90, category: 'Soft-Touch Series', image: 'https://henryng808.github.io/casecraft-store//assets/sku-mint.jpg' },
-                    { id: 5, name: 'Clear Rotating Gem', price: 26.00, category: 'Transparent Series', image: 'https://henryng808.github.io/casecraft-store//assets/sku-blue.jpg' },
-                    { id: 6, name: 'Minimalist Mirror Face', price: 28.50, category: 'Korean Edition', image: 'https://henryng808.github.io/casecraft-store//assets/main3.jpg' },
-                    { id: 7, name: 'Elegant Silver Plated', price: 31.00, category: 'Luxury Edition', image: 'https://henryng808.github.io/casecraft-store//assets/main4.jpg' },
-                    { id: 8, name: 'Retro Candy Color', price: 19.90, category: 'Youth Series', image: 'https://henryng808.github.io/casecraft-store//assets/main5.jpg' }
+                    { id: 1, name: 'Ins Contrast Dot Rotate', price: 24.90, category: 'iPhone 16 Series', image: 'https://henryng808.github.io/casecraft-store/assets/hero.png' },
+                    { id: 2, name: 'Magnetic Film Polka', price: 22.50, category: 'iPhone 17/16', image: 'https://henryng808.github.io/casecraft-store/assets/prod-magnetic.jpg' },
+                    { id: 3, name: '360° Glitter Stand', price: 19.80, category: 'Sparkle Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-glitter.jpg' },
+                    { id: 4, name: 'Luxury IMD Ring', price: 34.00, category: 'Premium Edition', image: 'https://henryng808.github.io/casecraft-store/assets/prod-luxury.png' },
+                    { id: 5, name: 'Milky Blue Matte', price: 21.00, category: 'Soft-Touch Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-milky.jpg' },
+                    { id: 6, name: 'Diamond IMD Case', price: 26.50, category: 'Fashion Edition', image: 'https://henryng808.github.io/casecraft-store/assets/prod-diamond.jpg' },
+                    { id: 7, name: 'Minimalist Mirror', price: 28.50, category: 'Selfie Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-mirror.png' },
+                    { id: 8, name: 'Electroplated Silver', price: 31.00, category: 'Luxury Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-silver.jpg' }
                 ],
                 addToCart(product) {
                     this.cart.push({ ...product, quantity: 1, selectedModel: 'iPhone 16 Pro', selectedSku: { label: 'Original' } });
