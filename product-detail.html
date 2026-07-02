@@ -66,15 +66,15 @@
                 </div>
 
                 <div class="mt-6">
-                    <div class="text-base text-gray-600 space-y-4 leading-relaxed text-left">
+                    <div class="text-base text-gray-600 space-y-4 leading-relaxed">
                         <p x-text="product.description"></p>
                     </div>
                 </div>
 
                 <div class="mt-10 border-t border-gray-100 pt-10">
-                    <!-- Color Picker -->
+                    <!-- SKU Picker -->
                     <div>
-                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Select Style</h3>
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Select Your Favorite</h3>
                         <div class="mt-4 grid grid-cols-4 gap-4">
                             <template x-for="sku in product.skus" :key="sku.name">
                                 <button @click="selectSku(sku)" class="group relative flex flex-col items-center space-y-2 focus:outline-none">
@@ -122,14 +122,15 @@
                 selectedSku: { name: '', label: '', image: '' },
                 models: ['iPhone 12', '12 Pro Max', 'iPhone 13', '13 Pro Max', 'iPhone 14', '14 Pro Max', 'iPhone 15', '15 Pro Max', 'iPhone 16', '16 Pro Max', 'iPhone 17', '17 Pro Max'],
                 database: {
-                    '1': { name: 'Orange Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Genuine IMD craft with bold orange contrast and metallic 360° rotating stand.', gallery: [baseUrl+'sku_orange.jpg', baseUrl+'main_1.jpg', baseUrl+'main_2.jpg'], skus: [{ name: 'orange', label: 'Orange', image: baseUrl+'sku_orange.jpg' }] },
-                    '2': { name: 'Blue Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Vibrant blue contrast design. Real-world durability.', gallery: [baseUrl+'sku_blue.jpg', baseUrl+'main_3.jpg', baseUrl+'main_4.jpg'], skus: [{ name: 'blue', label: 'Blue', image: baseUrl+'sku_blue.jpg' }] },
+                    '1': { name: 'Orange Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Genuine IMD craft with bold orange contrast.', gallery: [baseUrl+'sku_orange.jpg', baseUrl+'main_1.jpg', baseUrl+'main_2.jpg'], skus: [{ name: 'orange', label: 'Orange', image: baseUrl+'sku_orange.jpg' }] },
+                    '2': { name: 'Blue Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Vibrant blue contrast design.', gallery: [baseUrl+'sku_blue.jpg', baseUrl+'main_3.jpg', baseUrl+'main_4.jpg'], skus: [{ name: 'blue', label: 'Blue', image: baseUrl+'sku_blue.jpg' }] },
                     '3': { name: 'Green Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Deep green contrast theme.', gallery: [baseUrl+'sku_green.jpg', baseUrl+'main_5.jpg', baseUrl+'main_1.jpg'], skus: [{ name: 'green', label: 'Green', image: baseUrl+'sku_green.jpg' }] },
                     '4': { name: 'Mint Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Refreshing mint style.', gallery: [baseUrl+'sku_mint.jpg', baseUrl+'main_2.jpg', baseUrl+'main_4.jpg'], skus: [{ name: 'mint', label: 'Mint', image: baseUrl+'sku_mint.jpg' }] },
                     '5': { name: 'Mirror Bowknot Series', price: 22.80, series: 'Mirror Selfie Edition', description: 'Real mirror face with integrated 3D bowknot detail.', gallery: [baseUrl+'series-mirror-bow.jpg', baseUrl+'main-mirror-1.jpg', baseUrl+'main-mirror-2.jpg'], skus: [{ name: 'silver', label: 'Silver Mirror', image: baseUrl+'sku-mirror-silver.jpg' }, { name: 'clear', label: 'Clear Mirror', image: baseUrl+'sku-mirror-clear.jpg' }] },
                     '6': { name: 'Blue Floral Charm', price: 19.50, series: 'Korean Floral Series', description: 'Hand-painted blue floral patterns.', gallery: [baseUrl+'series-blue-floral.jpg', baseUrl+'main-floral-1.jpg', baseUrl+'main-floral-2.jpg'], skus: [{ name: 'blue-floral', label: 'Blue Floral', image: baseUrl+'sku-floral-blue.jpg' }, { name: 'white-floral', label: 'White Floral', image: baseUrl+'sku-floral-white.jpg' }] },
                     '7': { name: 'Sweet Pink Pearl', price: 26.00, series: 'Premium Romantic', description: 'High-quality romantic pink case.', gallery: [baseUrl+'series-sweet-pink.jpg', baseUrl+'main-pink-1.jpg', baseUrl+'main-pink-2.jpg'], skus: [{ name: 'pearl', label: 'Pearl Pink', image: baseUrl+'sku-pink-pearl.jpg' }, { name: 'shell', label: 'Shell Pink', image: baseUrl+'sku-pink-shell.jpg' }] },
-                    '8': { name: 'Checkered Vibe Bow', price: 21.90, series: 'Y2K Retro Series', description: 'Classic pink checkered pattern.', gallery: [baseUrl+'series-checkered-bow.jpg', baseUrl+'main-check-1.jpg', baseUrl+'main-check-2.jpg'], skus: [{ name: 'pink-check', label: 'Pink Check', image: baseUrl+'sku-check-pink.jpg' }, { name: 'blue-check', label: 'Blue Check', image: baseUrl+'sku-check-blue.jpg' }] }
+                    '8': { name: 'Checkered Vibe Bow', price: 21.90, series: 'Y2K Retro Series', description: 'Classic pink checkered pattern.', gallery: [baseUrl+'series-checkered-bow.jpg', baseUrl+'main-check-1.jpg', baseUrl+'main-check-2.jpg'], skus: [{ name: 'pink-check', label: 'Pink Check', image: baseUrl+'sku-check-pink.jpg' }, { name: 'blue-check', label: 'Blue Check', image: baseUrl+'sku-check-blue.jpg' }] },
+                    '9': { name: 'Smiley Polka Chain', price: 26.50, series: 'Iconic Chain Edition', description: 'Viral 1688 smiley polka dot case with matching decorative bead chain.', gallery: [baseUrl+'prod-smiley-dots.png', baseUrl+'main-smiley-1.jpg', baseUrl+'main-smiley-2.jpg'], skus: [{ name: 'green-smiley', label: 'Green Smiley', image: baseUrl+'sku-smiley-green.jpg' }, { name: 'orange-smiley', label: 'Orange Smiley', image: baseUrl+'sku-smiley-orange.jpg' }] }
                 },
                 init() {
                     const params = new URLSearchParams(window.location.search);
