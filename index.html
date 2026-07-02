@@ -11,17 +11,10 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         [x-cloak] { display: none !important; }
         .cart-drawer { transition: transform 0.3s ease-in-out; }
-        
-        /* Ins Style Accents */
-        .dot-pattern { 
-            background-image: radial-gradient(#E9D5FF 20%, transparent 20%), radial-gradient(#DCFCE7 20%, transparent 20%); 
-            background-position: 0 0, 20px 20px; 
-            background-size: 40px 40px; 
-        }
+        .dot-pattern { background-image: radial-gradient(#E9D5FF 20%, transparent 20%), radial-gradient(#DCFCE7 20%, transparent 20%); background-position: 0 0, 20px 20px; background-size: 40px 40px; }
         .ins-gradient { background: linear-gradient(135deg, #FDFCFB 0%, #F5F3FF 100%); }
         .product-card { border-radius: 2.5rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .product-card:hover { transform: translateY(-10px) scale(1.02); }
-        .btn-ins { border-radius: 1.5rem; }
     </style>
 </head>
 <body class="bg-[#FCFBFF]" x-data="shopApp()">
@@ -33,15 +26,8 @@
                 <img src="https://henryng808.github.io/casecraft-store/assets/logo.png" alt="CaseCraft Logo" class="h-10 w-10 rounded-xl shadow-sm">
                 <div class="text-2xl font-bold tracking-tighter text-gray-900 italic uppercase">CASE<span class="text-purple-500">CRAFT</span></div>
             </a>
-            
-            <div class="hidden lg:flex space-x-10 text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
-                <a href="#products" class="hover:text-purple-500 transition-colors">Collection</a>
-                <a href="#" class="hover:text-purple-500 transition-colors">Lookbook</a>
-                <a href="#" class="hover:text-purple-500 transition-colors">Community</a>
-            </div>
-
             <div class="flex items-center space-x-6">
-                <button @click="cartOpen = true" class="relative p-2 bg-purple-50 rounded-full text-purple-600 hover:bg-purple-100 transition">
+                <button @click="cartOpen = true" class="relative p-2 bg-purple-50 rounded-full text-purple-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     <span x-show="cart.length > 0" x-text="cart.length" class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white"></span>
                 </button>
@@ -49,108 +35,46 @@
         </div>
     </nav>
 
-    <!-- Shopping Cart Drawer (Logic Preserved) -->
-    <div x-show="cartOpen" x-cloak class="fixed inset-0 z-50 overflow-hidden">
-        <div class="absolute inset-0 bg-purple-900/20 backdrop-blur-sm transition-opacity" @click="cartOpen = false"></div>
-        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
-            <div class="w-screen max-w-md cart-drawer" x-show="cartOpen" x-transition:enter="transform transition ease-in-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transform transition ease-in-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full">
-                <div class="h-full flex flex-col bg-white shadow-2xl">
-                    <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
-                        <div class="flex items-start justify-between">
-                            <h2 class="text-xl font-bold text-gray-900">Your Bag</h2>
-                            <button @click="cartOpen = false" class="text-gray-400 hover:text-gray-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                        </div>
-                        <div class="mt-8">
-                            <ul role="list" class="-my-6 divide-y divide-purple-50">
-                                <template x-for="(item, index) in cart" :key="index">
-                                    <li class="py-6 flex items-center">
-                                        <div class="flex-shrink-0 w-20 h-20 bg-purple-50 rounded-2xl overflow-hidden border border-purple-100">
-                                            <img :src="item.image" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="ml-4 flex-1">
-                                            <div class="flex justify-between font-bold text-gray-900">
-                                                <h3 x-text="item.name" class="text-sm"></h3>
-                                                <p x-text="'$' + item.price"></p>
-                                            </div>
-                                            <p class="mt-1 text-xs text-gray-400 uppercase tracking-widest" x-text="item.selectedModel || 'Universal'"></p>
-                                            <button @click="removeFromCart(index)" class="mt-2 text-xs font-bold text-pink-500 hover:text-pink-600">Remove</button>
-                                        </div>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="border-t border-purple-50 py-6 px-4 sm:px-6 bg-purple-50/30">
-                        <div class="flex justify-between text-base font-bold text-gray-900">
-                            <p>Subtotal</p>
-                            <p x-text="'$' + cartTotal()"></p>
-                        </div>
-                        <button @click="goToCheckout()" class="mt-6 w-full bg-purple-600 text-white py-4 rounded-2xl font-bold hover:bg-purple-700 transition shadow-lg shadow-purple-200">Proceed to Checkout</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Section (Ins Redesigned) -->
-    <section class="pt-32 pb-20 ins-gradient relative overflow-hidden">
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 ins-gradient relative overflow-hidden text-center lg:text-left">
         <div class="absolute inset-0 dot-pattern opacity-30"></div>
         <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
-            <div class="lg:w-1/2 text-center lg:text-left mb-16 lg:mb-0">
+            <div class="lg:w-1/2 mb-16 lg:mb-0">
                 <div class="inline-flex items-center space-x-2 bg-white px-4 py-2 rounded-full shadow-sm mb-6 border border-purple-100">
                     <span class="flex h-2 w-2 rounded-full bg-green-400"></span>
-                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Trending in Seoul</span>
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">In Stock & Ready to Ship</span>
                 </div>
                 <h1 class="text-6xl lg:text-8xl font-extrabold text-gray-900 leading-[0.9] mb-8">
-                    Playful.<br>Bold.<br><span class="text-purple-500">Unstoppable.</span>
+                    The Real.<br>The Viral.<br><span class="text-purple-500">Ins Series.</span>
                 </h1>
-                <p class="text-xl text-gray-500 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                    The original 1688 'Ins' contrast dot series. With a 360° rotating invisible stand, it's the only case you'll ever need.
+                <p class="text-xl text-gray-500 mb-10 max-w-lg mx-auto lg:mx-0">
+                    Straight from the 1688 workshop to your door. Featuring authentic IMD craftsmanship and the original 360° rotating invisible stand.
                 </p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 justify-center lg:justify-start">
-                    <a href="#products" class="bg-purple-600 text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-purple-700 transition shadow-xl shadow-purple-100">Shop Collection</a>
-                    <a href="product-detail.html" class="bg-white text-purple-600 border-2 border-purple-100 px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-purple-50 transition">View Details</a>
+                    <a href="#products" class="bg-purple-600 text-white px-10 py-5 rounded-[2rem] font-bold text-lg hover:bg-purple-700 shadow-xl transition">Shop Real Collection</a>
                 </div>
             </div>
             <div class="lg:w-1/2 flex justify-center">
-                <div class="relative">
-                    <div class="absolute -inset-10 bg-purple-200/50 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-                    <img src="https://sc02.alicdn.com/kf/A2ee8bbd994474cdabd1099f69d9571a7j.png" alt="Featured Case" class="relative z-10 w-full max-w-md rounded-[4rem] shadow-2xl transform rotate-6 border-[12px] border-white">
-                    <!-- Floating Badge -->
-                    <div class="absolute -bottom-4 -left-4 z-20 bg-white p-5 rounded-3xl shadow-2xl border border-purple-50 transform -rotate-12">
-                        <div class="text-pink-500 font-black text-2xl">360°</div>
-                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Rotation Stand</div>
-                    </div>
-                </div>
+                <img src="https://henryng808.github.io/casecraft-store/assets/hero.jpg" alt="Real Product Photo" class="relative z-10 w-full max-w-md rounded-[4rem] shadow-2xl transform rotate-6 border-[12px] border-white">
             </div>
         </div>
     </section>
 
-    <!-- Product Grid (Ins Style) -->
+    <!-- Product Grid -->
     <section id="products" class="py-24">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 space-y-4 md:space-y-0">
-                <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Vibe-Checked Cases</h2>
-                <div class="flex space-x-4">
-                    <button class="px-6 py-2 rounded-full bg-purple-600 text-white text-sm font-bold">Newest</button>
-                    <button class="px-6 py-2 rounded-full bg-white text-gray-400 text-sm font-bold border border-purple-50 hover:bg-purple-50">Bestsellers</button>
-                </div>
-            </div>
-
+            <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight text-center mb-16 uppercase">Authentic Contrast Series</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 <template x-for="product in products" :key="product.id">
                     <div class="product-card group bg-white p-5 border border-purple-50 shadow-sm hover:shadow-2xl transition-all">
                         <div class="relative aspect-square rounded-[2rem] overflow-hidden bg-[#F9F8FF] mb-6">
                             <img :src="product.image" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <button @click="addToCart(product)" class="absolute bottom-4 right-4 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 text-purple-600">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H4a1 1 0 110-2h4V4a1 1 0 011-1z"></path></svg>
-                            </button>
                         </div>
-                        <a :href="'product-detail.html?id=' + product.id" class="block">
+                        <a :href="'product-detail.html?id=' + product.id" class="block text-center">
                             <h3 class="text-lg font-bold text-gray-900 mb-1" x-text="product.name"></h3>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-400 text-sm" x-text="product.category"></span>
+                            <div class="flex justify-center items-center space-x-2">
                                 <span class="text-xl font-black text-purple-600" x-text="'$' + product.price"></span>
+                                <span class="text-xs text-green-500 font-bold tracking-widest uppercase">Verified Real</span>
                             </div>
                         </a>
                     </div>
@@ -159,62 +83,19 @@
         </div>
     </section>
 
-    <!-- Social Proof (X Engagement) -->
-    <section class="py-20 bg-gray-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 dot-pattern opacity-5 invert"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h2 class="text-4xl font-black mb-6">Join the @CaseCraft Movement</h2>
-            <p class="text-gray-400 mb-12 max-w-xl mx-auto">See how the community styles their iPhone 16. Share your setup on X for a chance to be featured.</p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 opacity-50">
-                <div class="aspect-square bg-gray-800 rounded-3xl"></div>
-                <div class="aspect-square bg-gray-700 rounded-3xl translate-y-8"></div>
-                <div class="aspect-square bg-gray-800 rounded-3xl"></div>
-                <div class="aspect-square bg-gray-700 rounded-3xl translate-y-8"></div>
-            </div>
-            <a href="#" class="inline-flex items-center space-x-3 bg-purple-600 px-10 py-5 rounded-full font-bold hover:bg-purple-500 transition">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-                <span>Follow us on X</span>
-            </a>
-        </div>
-    </section>
-
-    <footer class="py-12 bg-white border-t border-purple-50">
-        <div class="container mx-auto px-4 text-center">
-            <div class="text-2xl font-bold tracking-tighter mb-8 italic">CASE<span class="text-purple-500">CRAFT</span></div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CaseCraft AI Global. Inspired by Korean Design.</p>
-        </div>
-    </footer>
-
     <script>
         function shopApp() {
             return {
                 cartOpen: false,
                 cart: JSON.parse(localStorage.getItem('cart') || '[]'),
                 products: [
-                    { id: 1, name: 'Ins Contrast Dot Rotate', price: 24.90, category: 'iPhone 16 Series', image: 'https://henryng808.github.io/casecraft-store/assets/hero.png' },
-                    { id: 2, name: 'Magnetic Film Polka', price: 22.50, category: 'iPhone 17/16', image: 'https://henryng808.github.io/casecraft-store/assets/prod-magnetic.jpg' },
-                    { id: 3, name: '360° Glitter Stand', price: 19.80, category: 'Sparkle Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-glitter.jpg' },
-                    { id: 4, name: 'Luxury IMD Ring', price: 34.00, category: 'Premium Edition', image: 'https://henryng808.github.io/casecraft-store/assets/prod-luxury.png' },
-                    { id: 5, name: 'Milky Blue Matte', price: 21.00, category: 'Soft-Touch Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-milky.jpg' },
-                    { id: 6, name: 'Diamond IMD Case', price: 26.50, category: 'Fashion Edition', image: 'https://henryng808.github.io/casecraft-store/assets/prod-diamond.jpg' },
-                    { id: 7, name: 'Minimalist Mirror', price: 28.50, category: 'Selfie Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-mirror.png' },
-                    { id: 8, name: 'Electroplated Silver', price: 31.00, category: 'Luxury Series', image: 'https://henryng808.github.io/casecraft-store/assets/prod-silver.jpg' }
+                    { id: 1, name: 'Orange Contrast Rotate', price: 24.90, image: 'https://henryng808.github.io/casecraft-store/assets/sku_orange.jpg' },
+                    { id: 2, name: 'Blue Contrast Rotate', price: 24.90, image: 'https://henryng808.github.io/casecraft-store/assets/sku_blue.jpg' },
+                    { id: 3, name: 'Green Contrast Rotate', price: 24.90, image: 'https://henryng808.github.io/casecraft-store/assets/sku_green.jpg' },
+                    { id: 4, name: 'Mint Contrast Rotate', price: 24.90, image: 'https://henryng808.github.io/casecraft-store/assets/sku_mint.jpg' }
                 ],
-                addToCart(product) {
-                    this.cart.push({ ...product, quantity: 1, selectedModel: 'iPhone 16 Pro', selectedSku: { label: 'Original' } });
-                    localStorage.setItem('cart', JSON.stringify(this.cart));
-                    this.cartOpen = true;
-                },
-                removeFromCart(index) {
-                    this.cart.splice(index, 1);
-                    localStorage.setItem('cart', JSON.stringify(this.cart));
-                },
-                cartTotal() {
-                    return this.cart.reduce((total, item) => total + item.price, 0).toFixed(2);
-                },
-                goToCheckout() {
-                    window.location.href = 'checkout.html';
-                }
+                cartTotal() { return this.cart.reduce((t, i) => t + i.price, 0).toFixed(2); },
+                goToCheckout() { window.location.href = 'checkout.html'; }
             }
         }
     </script>
