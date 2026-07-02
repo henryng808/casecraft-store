@@ -33,7 +33,6 @@
     <!-- Product Detail -->
     <main x-show="product" x-cloak class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
-            
             <!-- Image Gallery -->
             <div class="flex flex-col-reverse">
                 <div class="mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
@@ -72,11 +71,11 @@
                 </div>
 
                 <div class="mt-10 border-t border-gray-100 pt-10">
-                    <!-- Color Picker -->
+                    <!-- Color Picker (Now Product-Specific) -->
                     <div>
-                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Authentic Colorways</h3>
+                        <h3 class="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Available Styles</h3>
                         <div class="mt-4 grid grid-cols-4 gap-4">
-                            <template x-for="sku in skus" :key="sku.name">
+                            <template x-for="sku in product.skus" :key="sku.name">
                                 <button @click="selectSku(sku)" class="group relative flex flex-col items-center space-y-2 focus:outline-none">
                                     <div class="w-full aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300" :class="selectedSku.name === sku.name ? 'border-purple-500 ring-4 ring-purple-100 scale-105 shadow-lg' : 'border-gray-100 hover:border-purple-200'">
                                         <img :src="sku.image" class="w-full h-full object-cover">
@@ -118,30 +117,24 @@
                 product: null,
                 selectedModel: 'iPhone 16 Pro',
                 selectedImage: '',
-                selectedSku: { name: '', label: '' },
+                selectedSku: { name: '', label: '', image: '' },
                 models: ['iPhone 12', '12 Pro Max', 'iPhone 13', '13 Pro Max', 'iPhone 14', '14 Pro Max', 'iPhone 15', '15 Pro Max', 'iPhone 16', '16 Pro Max', 'iPhone 17', '17 Pro Max'],
-                skus: [
-                    { name: 'orange', label: 'Orange', image: 'https://henryng808.github.io/casecraft-store/assets/sku_orange.jpg' },
-                    { name: 'blue', label: 'Blue', image: 'https://henryng808.github.io/casecraft-store/assets/sku_blue.jpg' },
-                    { name: 'green', label: 'Green', image: 'https://henryng808.github.io/casecraft-store/assets/sku_green.jpg' },
-                    { name: 'mint', label: 'Mint', image: 'https://henryng808.github.io/casecraft-store/assets/sku_mint.jpg' }
-                ],
                 database: {
-                    '1': { name: 'Orange Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Genuine IMD craft with bold orange contrast and metallic 360° rotating stand.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_orange.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_1.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_2.jpg'] },
-                    '2': { name: 'Blue Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Vibrant blue contrast design. Real-world durability with a premium invisible stand.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_blue.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_3.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_4.jpg'] },
-                    '3': { name: 'Green Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Deep green contrast theme. Precision engineered for the perfect aesthetic grip.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_green.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_5.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_1.jpg'] },
-                    '4': { name: 'Mint Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Refreshing mint contrast style. The original viral design with authentic physical stand.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_mint.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_2.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_4.jpg'] },
-                    '5': { name: 'Mirror Bowknot Series', price: 22.80, series: 'Mirror Selfie Edition', description: 'Real mirror face with integrated 3D bowknot detail. Perfect for fashion-forward selfies.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-mirror-bow.jpg'] },
-                    '6': { name: 'Blue Floral Charm', price: 19.50, series: 'Korean Floral Series', description: 'Hand-painted blue floral patterns with a cute bow accent. Soft-touch matte finish.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-blue-floral.jpg'] },
-                    '7': { name: 'Sweet Pink Pearl', price: 26.00, series: 'Premium Romantic', description: 'High-quality romantic pink case with 3D texture and shell-pattern bowknot.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-sweet-pink.jpg'] },
-                    '8': { name: 'Checkered Vibe Bow', price: 21.90, series: 'Y2K Retro Series', description: 'Classic pink checkered pattern with a trendy ribbon bowknot. The ultimate Gen-Z vibe.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-checkered-bow.jpg'] }
+                    '1': { name: 'Orange Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Genuine IMD craft with bold orange contrast and metallic 360° rotating stand.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_orange.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_1.jpg'], skus: [{ name: 'orange', label: 'Orange', image: 'https://henryng808.github.io/casecraft-store/assets/sku_orange.jpg' }] },
+                    '2': { name: 'Blue Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Vibrant blue contrast design. Real-world durability.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_blue.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_2.jpg'], skus: [{ name: 'blue', label: 'Blue', image: 'https://henryng808.github.io/casecraft-store/assets/sku_blue.jpg' }] },
+                    '3': { name: 'Green Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Deep green contrast theme.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_green.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_3.jpg'], skus: [{ name: 'green', label: 'Green', image: 'https://henryng808.github.io/casecraft-store/assets/sku_green.jpg' }] },
+                    '4': { name: 'Mint Contrast Rotate', price: 24.90, series: '360° Rotating Series', description: 'Refreshing mint style.', gallery: ['https://henryng808.github.io/casecraft-store/assets/sku_mint.jpg', 'https://henryng808.github.io/casecraft-store/assets/main_4.jpg'], skus: [{ name: 'mint', label: 'Mint', image: 'https://henryng808.github.io/casecraft-store/assets/sku_mint.jpg' }] },
+                    '5': { name: 'Mirror Bowknot Series', price: 22.80, series: 'Mirror Selfie Edition', description: 'Real mirror face with integrated 3D bowknot detail. Perfect for fashion-forward selfies.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-mirror-bow.jpg'], skus: [{ name: 'silver', label: 'Silver', image: 'https://henryng808.github.io/casecraft-store/assets/series-mirror-bow.jpg' }] },
+                    '6': { name: 'Blue Floral Charm', price: 19.50, series: 'Korean Floral Series', description: 'Hand-painted blue floral patterns.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-blue-floral.jpg'], skus: [{ name: 'blue-floral', label: 'Blue Floral', image: 'https://henryng808.github.io/casecraft-store/assets/series-blue-floral.jpg' }] },
+                    '7': { name: 'Sweet Pink Pearl', price: 26.00, series: 'Premium Romantic', description: 'High-quality romantic pink case.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-sweet-pink.jpg'], skus: [{ name: 'pink-pearl', label: 'Pink Pearl', image: 'https://henryng808.github.io/casecraft-store/assets/series-sweet-pink.jpg' }] },
+                    '8': { name: 'Checkered Vibe Bow', price: 21.90, series: 'Y2K Retro Series', description: 'Classic pink checkered pattern.', gallery: ['https://henryng808.github.io/casecraft-store/assets/series-checkered-bow.jpg'], skus: [{ name: 'pink-check', label: 'Pink Check', image: 'https://henryng808.github.io/casecraft-store/assets/series-checkered-bow.jpg' }] }
                 },
                 init() {
                     const params = new URLSearchParams(window.location.search);
                     const id = params.get('id') || '1';
                     this.product = this.database[id];
                     this.selectedImage = this.product.gallery[0];
-                    this.selectedSku = this.skus[parseInt(id)-1];
+                    this.selectedSku = this.product.skus[0];
                     this.cartCount = JSON.parse(localStorage.getItem('cart') || '[]').length;
                 },
                 selectSku(sku) {
