@@ -1,0 +1,13 @@
+mutation {
+  p1: productCreate(product: {title: "Orange Contrast Rotate", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p2: productCreate(product: {title: "Blue Contrast Rotate", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p3: productCreate(product: {title: "Green Contrast Rotate", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p4: productCreate(product: {title: "Mint Contrast Rotate", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p5: productCreate(product: {title: "Mirror Bowknot Series", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p6: productCreate(product: {title: "Blue Floral Charm", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p7: productCreate(product: {title: "Sweet Pink Pearl", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p8: productCreate(product: {title: "Checkered Vibe Bow", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p9: productCreate(product: {title: "Smiley Polka Chain", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p10: productCreate(product: {title: "Purple Monster Stand", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+  p11: productCreate(product: {title: "Crybaby Polka Love", vendor: "CaseCraft", productType: "Phone Case"}) { product { id variants(first:1) { edges { node { id } } } } userErrors { field message } }
+}

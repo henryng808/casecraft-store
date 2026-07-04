@@ -148,7 +148,9 @@
                 },
                 addToCart() {
                     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                    cart.push({ ...this.product, selectedModel: this.selectedModel, selectedSku: this.selectedSku, image: this.selectedImage, quantity: 1 });
+                    const params = new URLSearchParams(window.location.search);
+                    const pid = params.get('id') || '1';
+                    cart.push({ ...this.product, productId: pid, selectedModel: this.selectedModel, selectedSku: this.selectedSku, image: this.selectedImage, quantity: 1 });
                     localStorage.setItem('cart', JSON.stringify(cart));
                     this.cartCount = cart.length;
                     if(confirm('Added to bag! Go to checkout?')) window.location.href = 'checkout.html';

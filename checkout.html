@@ -148,22 +148,32 @@
                 paymentMethod: 'stripe',
                 loading: false,
                 storeDomain: 'uprint-lab-v2.myshopify.com',
-                accessToken: '203c567953e0ed484b891495e1c34608',
+                // Shopify variant ID mapping for each product
+                variantMap: {
+                    '1': '66972919365677', '2': '66972919398445',
+                    '3': '66972919431213', '4': '66972919463981',
+                    '5': '66972919496749', '6': '66972919529517',
+                    '7': '66972919562285', '8': '66972919595053',
+                    '9': '66972919627821', '10': '66972919660589',
+                    '11': '66972919693357'
+                },
                 subtotal() {
                     return this.cart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0).toFixed(2);
                 },
-                async processPayment() {
+                processPayment() {
                     this.loading = true;
-                    // Real Connection to Shopify Checkout Secure Page
-                    // In this setup, we redirect the user to your store's central cart/checkout
-                    // which is pre-authorized by your Storefront Token.
-                    
-                    const checkoutUrl = `https://${this.storeDomain}/cart/`;
-                    
+                    // Build real Shopify cart URL with variant IDs
+                    const items = this.cart
+                        .filter(item => this.variantMap[item.productId])
+                        .map(item => this.variantMap[item.productId] + ':' + (item.quantity || 1))
+                        .join(',');
+                    const checkoutUrl = items 
+                        ? 'https://' + this.storeDomain + '/cart/' + items
+                        : 'https://' + this.storeDomain + '/cart/';
                     setTimeout(() => {
                         this.loading = false;
                         window.location.href = checkoutUrl;
-                    }, 1500);
+                    }, 1000);
                 }
             }
         }

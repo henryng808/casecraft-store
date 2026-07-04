@@ -1,0 +1,13 @@
+mutation {
+  v1: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647787053", variants: [{id: "gid://shopify/ProductVariant/66972919365677", price: "24.90"}]) { productVariants { id price } userErrors { field message } }
+  v2: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647819821", variants: [{id: "gid://shopify/ProductVariant/66972919398445", price: "24.90"}]) { productVariants { id price } userErrors { field message } }
+  v3: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647852589", variants: [{id: "gid://shopify/ProductVariant/66972919431213", price: "24.90"}]) { productVariants { id price } userErrors { field message } }
+  v4: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647885357", variants: [{id: "gid://shopify/ProductVariant/66972919463981", price: "24.90"}]) { productVariants { id price } userErrors { field message } }
+  v5: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647918125", variants: [{id: "gid://shopify/ProductVariant/66972919496749", price: "22.80"}]) { productVariants { id price } userErrors { field message } }
+  v6: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647950893", variants: [{id: "gid://shopify/ProductVariant/66972919529517", price: "19.50"}]) { productVariants { id price } userErrors { field message } }
+  v7: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163647983661", variants: [{id: "gid://shopify/ProductVariant/66972919562285", price: "26.00"}]) { productVariants { id price } userErrors { field message } }
+  v8: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163648016429", variants: [{id: "gid://shopify/ProductVariant/66972919595053", price: "21.90"}]) { productVariants { id price } userErrors { field message } }
+  v9: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163648049197", variants: [{id: "gid://shopify/ProductVariant/66972919627821", price: "26.50"}]) { productVariants { id price } userErrors { field message } }
+  v10: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163648081965", variants: [{id: "gid://shopify/ProductVariant/66972919660589", price: "24.90"}]) { productVariants { id price } userErrors { field message } }
+  v11: productVariantsBulkUpdate(productId: "gid://shopify/Product/15163648114733", variants: [{id: "gid://shopify/ProductVariant/66972919693357", price: "22.50"}]) { productVariants { id price } userErrors { field message } }
+}
